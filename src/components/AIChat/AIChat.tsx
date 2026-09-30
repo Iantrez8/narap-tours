@@ -34,6 +34,63 @@ export default function AIChat() {
     }
   }, [messages, isOpen]);
 
+  const generateResponse = (userInput: string): string => {
+    const text = userInput.toLowerCase();
+
+    // 1. Pricing & Quotes
+    if (text.includes('price') || text.includes('cost') || text.includes('quote') || text.includes('how much') || text.includes('package') || text.includes('budget')) {
+      return "Since our journeys are 100% custom-designed, pricing varies based on your itinerary, accommodation level, and travel dates. To give you an accurate quote, we recommend clicking 'Plan Your Journey' in the menu, or contacting us on WhatsApp (+254 737 449 129) to discuss your vision.";
+    }
+    
+    // 2. Best Time to Visit / Weather
+    if (text.includes('when') || text.includes('time') || text.includes('weather') || text.includes('month') || text.includes('season')) {
+      return "Kenya is a fantastic year-round destination! However, the 'best' time depends on what you want to see. July to October is famous for the Great Migration. January to March is dry and excellent for wildlife viewing, while the 'green season' (April-June, Nov-Dec) offers lush landscapes, newborn animals, and fewer crowds.";
+    }
+
+    // 3. Family / Kids
+    if (text.includes('family') || text.includes('kids') || text.includes('children') || text.includes('child')) {
+      return "We absolutely love designing family safaris! We partner with lodges that offer fantastic Junior Ranger programs, babysitting services, and family suites. We ensure the pace of the journey is perfect for younger travelers while keeping it thrilling for the adults.";
+    }
+
+    // 4. Honeymoon / Couples
+    if (text.includes('honeymoon') || text.includes('romantic') || text.includes('couple') || text.includes('wedding')) {
+      return "Kenya is the ultimate romantic destination. We can arrange private bush dinners under the stars, hot air balloon rides at dawn, and secluded luxury tents. Let us know you are celebrating a honeymoon, and we'll ensure there are magical surprises along the way!";
+    }
+
+    // 5. Destinations / Safaris
+    if (text.includes('safari') || text.includes('destination') || text.includes('mara') || text.includes('park') || text.includes('where') || text.includes('see')) {
+      return "We offer bespoke safaris across Kenya's most spectacular destinations: the iconic Maasai Mara, elephant-rich Amboseli, rugged Samburu, and the pristine Indian Ocean coastline (Diani/Watamu). We can also combine the bush and the beach for the ultimate experience!";
+    }
+
+    // 6. Travel Requirements (Visas/Health)
+    if (text.includes('visa') || text.includes('vaccine') || text.includes('health') || text.includes('passport') || text.includes('require')) {
+      return "Travelers to Kenya generally require an Electronic Travel Authorisation (eTA) obtained online prior to travel. We also recommend checking with your local travel clinic for standard health precautions like Malaria prophylaxis. Once you book, we provide a comprehensive pre-departure guide!";
+    }
+
+    // 7. Booking Process
+    if (text.includes('book') || text.includes('plan') || text.includes('start') || text.includes('design') || text.includes('step')) {
+      return "Planning with us is easy! \n1. Click 'Plan Your Journey' and tell us your preferences.\n2. We'll consult with you to refine the details.\n3. We design a custom itinerary just for you.\n4. Once approved, we handle all bookings and logistics from touchdown to departure!";
+    }
+
+    // 8. Referrals
+    if (text.includes('refer') || text.includes('earn') || text.includes('reward')) {
+      return "Our Referral Program lets you earn exclusive rewards and custom packages when a friend you refer books a journey with us! You can join by visiting the 'Referrals' page in the main menu.";
+    }
+
+    // 9. Contact Info
+    if (text.includes('contact') || text.includes('phone') || text.includes('whatsapp') || text.includes('email') || text.includes('call') || text.includes('talk')) {
+      return "You can chat with our travel designers directly via WhatsApp at +254 737 449 129, or email us at info@naraptoursandtravel.com. We're always here to help!";
+    }
+
+    // 10. Greetings
+    if (text.includes('hello') || text.includes('hi ') || text === 'hi' || text.includes('hey') || text.includes('morning') || text.includes('afternoon')) {
+      return "Hello there! Welcome to NARAP Tours & Travel. Are you looking to plan a safari, learn about our destinations, or do you have a specific question in mind?";
+    }
+    
+    // Fallback response with helpful prompts
+    return "I might need a little more context to answer that accurately! \n\nYou can ask me about:\n• Pricing and Custom Quotes\n• Best times to travel\n• Family or Honeymoon safaris\n• Booking process\n\nFor immediate expert assistance, you can always reach our team on WhatsApp at +254 737 449 129.";
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -47,15 +104,15 @@ export default function AIChat() {
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
 
-    // Simulate AI thinking and response
+    // Simulate "typing" delay before showing the rule-based response
     setTimeout(() => {
-      const aiResponse: Message = {
+      const botResponse: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: "I would be delighted to help with that. Could you tell me a little more about who you'll be traveling with and any specific interests like wildlife photography or cultural experiences?"
+        content: generateResponse(userMessage.content)
       };
-      setMessages((prev) => [...prev, aiResponse]);
-    }, 1500);
+      setMessages((prev) => [...prev, botResponse]);
+    }, 800);
   };
 
   return (

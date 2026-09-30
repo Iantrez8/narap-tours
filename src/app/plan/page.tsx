@@ -32,7 +32,7 @@ const motivations = [
   { value: 'adventure', label: 'Adventure', image: 'https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?w=400&q=70' },
   { value: 'celebration', label: 'Celebration', image: 'https://images.unsplash.com/photo-1549366021-9f761d450615?w=400&q=70' },
   { value: 'corporate', label: 'Corporate', image: 'https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=400&q=70' },
-  { value: 'first-safari', label: 'First Safari', image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963fc8?w=400&q=70' },
+  { value: 'first-safari', label: 'First Safari', image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=70' },
 ];
 
 const experienceOptions = [
@@ -139,7 +139,7 @@ Budget: ${formData.budget}
 ${formData.message || 'None'}`;
 
     const encodedMessage = encodeURIComponent(messageText);
-    const whatsappUrl = `https://wa.me/254743883119?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/254737449129?text=${encodedMessage}`;
     
     // Redirect the user in the same tab to avoid pop-up blockers
     window.location.href = whatsappUrl;
@@ -165,7 +165,7 @@ ${formData.message || 'None'}`;
               Return Home
             </Link>
             <Link
-              href="https://wa.me/254743883119"
+              href="https://wa.me/254737449129"
               className="btn btn--secondary"
               target="_blank"
               rel="noopener noreferrer"

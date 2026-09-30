@@ -16,6 +16,12 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.headerOpen {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  z-index: calc(var(--z-overlay) + 2);
+}
+
 .inner {
   display: flex;
   align-items: center;
@@ -147,7 +153,9 @@
   width: 44px;
   height: 44px;
   color: var(--color-ivory);
-  z-index: calc(var(--z-overlay) + 1);
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 /* Mobile Menu */
@@ -218,15 +226,15 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .nav {
-    display: none;
+    display: none !important;
   }
 
   .cta {
-    display: none;
+    display: none !important;
   }
 
   .menuToggle {
-    display: flex;
+    display: flex !important;
   }
 }
 

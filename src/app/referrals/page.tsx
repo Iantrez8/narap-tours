@@ -38,7 +38,7 @@ export default function ReferralsPage() {
     <>
       <section className={styles.hero}>
         <Image
-          src="https://images.unsplash.com/photo-1522881451255-f59ad836f363?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1920&q=80"
           alt="Friends enjoying a safari sunset"
           fill
           priority
@@ -82,7 +82,7 @@ export default function ReferralsPage() {
                 <Gift size={24} />
               </div>
               <h3 className={styles.stepTitle}>3. Earn Rewards</h3>
-              <p className={styles.stepDesc}>Receive up to $500 in travel credit towards your next journey, or opt for an exclusive conservation donation in your name.</p>
+              <p className={styles.stepDesc}>Receive exclusive rewards and custom packages towards your next journey, or opt for an exclusive conservation donation in your name.</p>
             </div>
           </div>
         </div>

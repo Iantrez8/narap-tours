@@ -36,20 +36,25 @@ html {
 
 /* --- Design Tokens --- */
 :root {
-  /* Colors — NARAP Hybrid Editorial Luxury System */
-  --brand-navy: #071827;
-  --deep-navy: #0D1D2D;
-  --warm-ivory: #F7F5EF;
+  /* Colors — NARAP Bright Luxury System */
+  --brand-navy: #0A1E30;
+  --deep-navy: #122B42;
+  --warm-ivory: #FDFBF6;
   --white: #FFFFFF;
-  --charcoal: #171717;
-  --muted-text: #6F746F;
-  --sand: #D8CBB5;
-  --brand-gold: #C9A44C;
-  --soft-gold: #D8BC76;
+  --charcoal: #1A1A1A;
+  --muted-text: #5A6068;
+  --sand: #C4A97D;
+  --brand-gold: #D4A843;
+  --soft-gold: #E8C96A;
+
+  /* Accent & highlight colors for vibrancy */
+  --amber-glow: #F5B731;
+  --sunset-coral: #E8845C;
+  --sky-teal: #2AA6A0;
 
   /* Semantic mappings for backward compatibility & easy usage */
   --color-ivory: var(--warm-ivory);
-  --color-ivory-warm: #F2EFE8;
+  --color-ivory-warm: #F8F4EC;
   --color-charcoal: var(--charcoal);
   --color-charcoal-light: var(--muted-text);
   --color-forest: var(--brand-navy);
@@ -57,16 +62,18 @@ html {
   --color-sand: var(--sand);
   --color-sand-light: #E8DECD;
   --color-stone: #E0D9C8;
-  --color-stone-light: #ECE7DB;
+  --color-stone-light: #F0EBE1;
   --color-bronze: var(--brand-gold);
   --color-bronze-light: var(--soft-gold);
   --color-white: var(--white);
-  --color-error: #8B3A3A;
-  --color-success: #3A6B4A;
+  --color-error: #C0392B;
+  --color-success: #27AE60;
 
   /* Gradients */
-  --gradient-gold: linear-gradient(135deg, var(--brand-gold) 0%, var(--soft-gold) 100%);
+  --gradient-gold: linear-gradient(135deg, var(--brand-gold) 0%, var(--soft-gold) 50%, var(--amber-glow) 100%);
   --gradient-navy: linear-gradient(180deg, var(--brand-navy) 0%, var(--deep-navy) 100%);
+  --gradient-warm: linear-gradient(135deg, #FFF8EE 0%, #FFF3E0 100%);
+  --gradient-sunset: linear-gradient(135deg, var(--brand-gold) 0%, var(--sunset-coral) 100%);
 
   /* Typography */
   --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -122,10 +129,12 @@ html {
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  /* Shadows — used very sparingly */
-  --shadow-sm: 0 1px 2px rgba(24, 24, 21, 0.04);
-  --shadow-md: 0 4px 12px rgba(24, 24, 21, 0.06);
-  --shadow-lg: 0 8px 24px rgba(24, 24, 21, 0.08);
+  /* Shadows — warm-tinted for brightness */
+  --shadow-sm: 0 1px 3px rgba(24, 24, 21, 0.05);
+  --shadow-md: 0 4px 16px rgba(24, 24, 21, 0.07);
+  --shadow-lg: 0 8px 32px rgba(24, 24, 21, 0.09);
+  --shadow-gold: 0 4px 20px rgba(212, 168, 67, 0.2);
+  --shadow-warm: 0 8px 30px rgba(212, 168, 67, 0.12);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -376,11 +385,13 @@ ul, ol {
   background: var(--gradient-gold);
   color: var(--color-charcoal);
   font-weight: 600;
+  box-shadow: 0 2px 12px rgba(212, 168, 67, 0.2);
 }
 
 .btn--light:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 4px 20px rgba(197, 165, 90, 0.3);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 28px rgba(212, 168, 67, 0.35);
+  transform: translateY(-1px);
 }
 
 .btn--sm {

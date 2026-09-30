@@ -226,7 +226,7 @@ export default async function JourneyDetailPage(
               Design This Journey
             </Link>
             <Link
-              href="https://wa.me/254743883119"
+              href="https://wa.me/254737449129"
               className={styles.ctaSecondary}
               target="_blank"
               rel="noopener noreferrer"

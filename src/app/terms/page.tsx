@@ -51,7 +51,7 @@ export default function TermsPage() {
 
           <h2>7. Contact Us</h2>
           <p>
-            If you have any questions or concerns regarding these terms, please contact us at <a href="mailto:info@naraptoursandtravel.com">info@naraptoursandtravel.com</a> or via WhatsApp at <Link href="https://wa.me/254743883119">+254 743 883 119</Link>.
+            If you have any questions or concerns regarding these terms, please contact us at <a href="mailto:info@naraptoursandtravel.com">info@naraptoursandtravel.com</a> or via WhatsApp at <Link href="https://wa.me/254737449129">+254 737 449 129</Link>.
           </p>
         </div>
       </div>

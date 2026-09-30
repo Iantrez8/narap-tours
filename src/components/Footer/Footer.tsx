@@ -53,7 +53,7 @@ export default function Footer() {
             </Link>
 
             <Link
-              href="https://wa.me/254743883119"
+              href="https://wa.me/254737449129"
               className={styles.contactLink}
               target="_blank"
               rel="noopener noreferrer"

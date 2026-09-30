@@ -48,7 +48,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
+        className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${menuOpen ? styles.headerOpen : ''}`}
         role="banner"
       >
         <div className={styles.inner}>
@@ -70,7 +70,7 @@ export default function Header() {
 
           <div className={styles.actions}>
             <Link
-              href="https://wa.me/254743883119"
+              href="https://wa.me/254737449129"
               className={styles.whatsapp}
               aria-label="Contact us on WhatsApp"
               target="_blank"
@@ -119,7 +119,7 @@ export default function Header() {
             Plan Your Journey
           </Link>
           <Link
-            href="https://wa.me/254743883119"
+            href="https://wa.me/254737449129"
             className={styles.mobileWhatsapp}
             target="_blank"
             rel="noopener noreferrer"

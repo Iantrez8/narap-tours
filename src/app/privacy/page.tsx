@@ -56,7 +56,7 @@ export default function PrivacyPage() {
 
           <h2>6. Contact Us</h2>
           <p>
-            If you have questions or comments about this notice, you may email us at <a href="mailto:info@naraptoursandtravel.com">info@naraptoursandtravel.com</a> or contact us via WhatsApp at <Link href="https://wa.me/254743883119">+254 743 883 119</Link>.
+            If you have questions or comments about this notice, you may email us at <a href="mailto:info@naraptoursandtravel.com">info@naraptoursandtravel.com</a> or contact us via WhatsApp at <Link href="https://wa.me/254737449129">+254 737 449 129</Link>.
           </p>
         </div>
       </div>
