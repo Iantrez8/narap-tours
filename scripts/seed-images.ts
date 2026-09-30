@@ -32,7 +32,7 @@ async function uploadImage(url: string) {
         _ref: asset._id,
       },
     };
-  } catch (err) {
+  } catch (err: any) {
     console.error(`Failed to upload image from ${url}`, err.message);
     return null;
   }
