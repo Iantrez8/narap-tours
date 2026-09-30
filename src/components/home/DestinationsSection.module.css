@@ -1,0 +1,121 @@
+.section {
+  background-color: var(--color-ivory-warm);
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 400;
+  color: var(--color-charcoal);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-16);
+}
+
+.editorialList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  max-width: var(--container-2xl);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.editorialRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+/* Alternate row direction */
+.editorialRow:nth-child(even) {
+  grid-template-columns: 1fr 1.5fr;
+}
+.editorialRow:nth-child(even) .imageCol {
+  order: 2;
+}
+.editorialRow:nth-child(even) .contentCol {
+  order: 1;
+}
+
+.imageCol {
+  width: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.contentCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contentInner {
+  max-width: 420px;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-sand);
+  margin-bottom: var(--space-4);
+}
+
+.destName {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--color-charcoal);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-6);
+}
+
+.destDesc {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-charcoal-light);
+  margin-bottom: var(--space-8);
+}
+
+.exploreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-charcoal);
+  text-decoration: none;
+  font-weight: 500;
+  transition: gap var(--transition-base), color var(--transition-fast);
+}
+
+.exploreLink:hover {
+  gap: var(--space-3);
+  color: var(--color-sand);
+}
+
+@media (max-width: 1024px) {
+  .editorialRow,
+  .editorialRow:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  
+  .editorialRow:nth-child(even) .imageCol {
+    order: 1;
+  }
+  .editorialRow:nth-child(even) .contentCol {
+    order: 2;
+  }
+}

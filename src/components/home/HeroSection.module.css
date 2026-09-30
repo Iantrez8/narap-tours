@@ -14,14 +14,26 @@
   inset: 0;
 }
 
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+}
+
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
+  background-color: rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(
+    to right,
+    rgba(7, 24, 39, 0.8) 0%,
+    rgba(7, 24, 39, 0.3) 50%,
+    rgba(7, 24, 39, 0) 100%
+  ),
+  linear-gradient(
     to top,
-    rgba(24, 24, 21, 0.65) 0%,
-    rgba(24, 24, 21, 0.2) 40%,
-    rgba(24, 24, 21, 0.05) 100%
+    rgba(7, 24, 39, 0.9) 0%,
+    rgba(7, 24, 39, 0.2) 40%,
+    rgba(7, 24, 39, 0) 100%
   );
 }
 
@@ -127,5 +139,9 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-5);
+  }
+
+  .heroImage {
+    object-position: center bottom;
   }
 }

@@ -3,16 +3,21 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-import { getFeaturedJourneys } from '@/data/journeys';
+// Import removed
 import { useScrollReveal } from '@/hooks/useScroll';
 import styles from './FeaturedJourneys.module.css';
 
-export default function FeaturedJourneys() {
-  const journeys = getFeaturedJourneys();
+import { Journey } from '@/data/journeys';
+
+interface FeaturedJourneysProps {
+  journeys: Journey[];
+}
+
+export default function FeaturedJourneys({ journeys }: FeaturedJourneysProps) {
   const ref = useScrollReveal();
 
   return (
-    <section className={`section section--lg ${styles.section}`} aria-label="Featured Journeys">
+    <section className={`section ${styles.section}`} aria-label="Featured Journeys">
       <div className="container container--wide">
         <div className={styles.header} ref={ref}>
           <div className="reveal">

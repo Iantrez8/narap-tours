@@ -36,7 +36,7 @@ export function useScrollReveal() {
 }
 
 export function useScrollHeader() {
-  const callbackRef = useRef<(scrolled: boolean) => void>();
+  const callbackRef = useRef<((scrolled: boolean) => void) | null>(null);
 
   const setCallback = useCallback((cb: (scrolled: boolean) => void) => {
     callbackRef.current = cb;

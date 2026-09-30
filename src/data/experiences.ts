@@ -90,6 +90,24 @@ export const experiences: Experience[] = [
     cardImage: 'https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?w=800&q=80',
     featured: false,
   },
+  {
+    slug: 'educational-travel',
+    title: 'Educational Travel & School Excursions',
+    tagline: 'The world\'s greatest classroom.',
+    description: 'Tailored logistical planning for student field trips, geography/science camps, and curricular outdoor learning. We facilitate immersive educational experiences that connect students directly with ecosystems, conservation efforts, and local communities.',
+    heroImage: 'https://images.unsplash.com/photo-1522881451255-f59ad836f363?w=1920&q=80',
+    cardImage: 'https://images.unsplash.com/photo-1522881451255-f59ad836f363?w=800&q=80',
+    featured: false,
+  },
+  {
+    slug: 'athletic-mobility',
+    title: 'Athletic & Sports Mobility',
+    tagline: 'Performance at altitude.',
+    description: 'Specialized transport, gear management, and accommodation coordination for training camps, regional tournaments, and visiting elite runners or teams. Experience Kenya\'s renowned high-altitude training environments with seamless logistical support.',
+    heroImage: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1920&q=80',
+    cardImage: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80',
+    featured: false,
+  },
 ];
 
 export function getExperienceBySlug(slug: string): Experience | undefined {

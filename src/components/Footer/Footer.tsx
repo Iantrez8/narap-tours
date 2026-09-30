@@ -1,34 +1,17 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MapPin, MessageCircle, Mail } from 'lucide-react';
 import styles from './Footer.module.css';
 
 const footerLinks = {
-  journeys: [
-    { label: 'All Journeys', href: '/journeys' },
-    { label: 'Private Safari', href: '/journeys/mara-in-slow-motion' },
-    { label: 'Honeymoon', href: '/journeys/kenya-for-two' },
-    { label: 'Family Safari', href: '/journeys/family-safari' },
-    { label: 'Photography', href: '/journeys/photographers-kenya' },
-  ],
-  destinations: [
-    { label: 'Maasai Mara', href: '/destinations/maasai-mara' },
-    { label: 'Amboseli', href: '/destinations/amboseli' },
-    { label: 'Samburu', href: '/destinations/samburu' },
-    { label: 'Diani', href: '/destinations/diani' },
-    { label: 'Lamu', href: '/destinations/lamu' },
-  ],
-  company: [
-    { label: 'About', href: '/about' },
-    { label: 'Journal', href: '/journal' },
-    { label: 'Responsible Travel', href: '/responsible-travel' },
-    { label: 'Partners', href: '/partners' },
-    { label: 'Corporate Travel', href: '/corporate' },
+  explore: [
+    { label: 'All Safaris', href: '/journeys' },
+    { label: 'Destinations', href: '/destinations' },
+    { label: 'Adventures', href: '/experiences' },
+    { label: 'About NARAP', href: '/about' },
   ],
   legal: [
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms & Conditions', href: '/terms' },
-    { label: 'Cancellation Policy', href: '/cancellation' },
-    { label: 'Partner Terms', href: '/partner-terms' },
   ],
 };
 
@@ -38,64 +21,56 @@ export default function Footer() {
   return (
     <footer className={styles.footer} role="contentinfo">
       <div className={`container container--wide ${styles.inner}`}>
-        {/* Top section */}
         <div className={styles.top}>
           <div className={styles.brand}>
             <div className={styles.logo}>
-              <span className={styles.logoMark}>S</span>
-              <span className={styles.logoText}>Savanna & Co.</span>
+              <span className={styles.logoMark}>N</span>
+              <div className={styles.logoTextGroup}>
+                <span className={styles.logoText}>NARAP</span>
+                <span className={styles.logoSub}>Tours & Travel</span>
+              </div>
             </div>
             <p className={styles.tagline}>
-              Private journeys through Kenya&apos;s wild landscapes, extraordinary
-              stays and unforgettable moments — designed around you.
+              Extraordinary Journeys. Global Connections. Safaris, adventures,
+              business travel and luxury escapes.
             </p>
-            <div className={styles.contact}>
-              <Link
-                href="https://wa.me/254700000000"
-                className={styles.contactLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp <ArrowUpRight size={14} />
-              </Link>
-              {/* PLACEHOLDER: Replace with real email */}
-              <Link href="mailto:hello@savannaandco.com" className={styles.contactLink}>
-                hello@savannaandco.com <ArrowUpRight size={14} />
-              </Link>
-            </div>
+          </div>
+
+          <div className={styles.contactDetails}>
+            <Link
+              href="https://maps.google.com/maps?q=-1.29451322555542%2C36.785850524902344&z=17&hl=en"
+              className={styles.mapButton}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className={styles.mapIconWrapper}>
+                <MapPin size={24} />
+              </div>
+              <div className={styles.mapText}>
+                <span className={styles.mapTitle}>View on Map</span>
+                <span className={styles.mapSubtitle}>Wood Avenue Park Apartments<br/>5th floor, door 5</span>
+              </div>
+            </Link>
+
+            <Link
+              href="https://wa.me/254743883119"
+              className={styles.contactLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle size={18} /> Chat on WhatsApp
+            </Link>
+            
+            <Link href="mailto:info@naraptoursandtravel.com" className={styles.contactLink}>
+              <Mail size={18} /> info@naraptoursandtravel.com
+            </Link>
           </div>
 
           <div className={styles.columns}>
             <div className={styles.column}>
-              <h3 className={styles.columnTitle}>Journeys</h3>
+              <h3 className={styles.columnTitle}>Explore</h3>
               <ul className={styles.columnList}>
-                {footerLinks.journeys.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className={styles.columnLink}>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className={styles.column}>
-              <h3 className={styles.columnTitle}>Destinations</h3>
-              <ul className={styles.columnList}>
-                {footerLinks.destinations.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className={styles.columnLink}>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className={styles.column}>
-              <h3 className={styles.columnTitle}>Company</h3>
-              <ul className={styles.columnList}>
-                {footerLinks.company.map((link) => (
+                {footerLinks.explore.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className={styles.columnLink}>
                       {link.label}
@@ -120,12 +95,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className={styles.bottom}>
           <p className={styles.copyright}>
-            &copy; {currentYear} Savanna & Co. All rights reserved.
+            &copy; {currentYear} NARAP Tours & Travel. All rights reserved.
           </p>
-          {/* PLACEHOLDER: Add real social links when available */}
           <div className={styles.social}>
             <Link href="#" className={styles.socialLink} aria-label="Instagram">
               Instagram

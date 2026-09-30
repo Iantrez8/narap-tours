@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
+import AIChat from '@/components/AIChat/AIChat';
 import './globals.css';
 
 const inter = Inter({
@@ -19,33 +20,33 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s — Savanna & Co. | Luxury Kenya Safaris',
-    default: 'Savanna & Co. — Luxury Kenya Safaris & Private Journeys',
+    template: '%s — NARAP Tours & Travel',
+    default: 'NARAP Tours & Travel — Extraordinary Journeys. Global Connections.',
   },
   description:
-    'Private safaris and luxury journeys through Kenya — designed around you. Explore the Maasai Mara, Amboseli, Samburu and Kenya\'s coast with a personal travel designer.',
-  metadataBase: new URL('https://savannaandco.com'),
+    'Extraordinary Journeys. Global Connections. Safaris, adventures, business travel and luxury escapes through Kenya and beyond — designed around you.',
+  metadataBase: new URL('https://naraptoursandtravel.com'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Savanna & Co.',
-    title: 'Savanna & Co. — Luxury Kenya Safaris & Private Journeys',
+    siteName: 'NARAP Tours & Travel',
+    title: 'NARAP Tours & Travel — Extraordinary Journeys. Global Connections.',
     description:
-      'Private safaris and luxury journeys through Kenya — designed around you.',
+      'Safaris, adventures, business travel and luxury escapes — designed around you.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Savanna & Co. — Luxury Kenya Safaris',
+        alt: 'NARAP Tours & Travel — Extraordinary Journeys',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Savanna & Co. — Luxury Kenya Safaris & Private Journeys',
+    title: 'NARAP Tours & Travel — Extraordinary Journeys. Global Connections.',
     description:
-      'Private safaris and luxury journeys through Kenya — designed around you.',
+      'Safaris, adventures, business travel and luxury escapes — designed around you.',
   },
   robots: {
     index: true,
@@ -55,14 +56,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
-      <body>
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <a href="#main-content" className="sr-only" style={{ position: 'absolute', top: 0, left: '-9999px' }}>
           Skip to main content
         </a>
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <AIChat />
       </body>
     </html>
   );

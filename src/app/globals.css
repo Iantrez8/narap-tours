@@ -1,6 +1,6 @@
 /* ============================================
-   KENYA LUXURY TOURISM — DESIGN SYSTEM
-   Quiet luxury + African editorial storytelling
+   NARAP TOURS & TRAVEL — DESIGN SYSTEM
+   Navy & Gold luxury · Global travel storytelling
    ============================================ */
 
 /* --- CSS Reset --- */
@@ -17,6 +17,7 @@ html {
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -35,22 +36,37 @@ html {
 
 /* --- Design Tokens --- */
 :root {
-  /* Colors — Restrained natural luxury palette */
-  --color-ivory: #F6F4EE;
-  --color-ivory-warm: #F0EDE5;
-  --color-charcoal: #181815;
-  --color-charcoal-light: #2A2A25;
-  --color-forest: #26382D;
-  --color-forest-light: #354A3F;
-  --color-sand: #B8A98C;
-  --color-sand-light: #C9BBAA;
-  --color-stone: #D8D1C4;
-  --color-stone-light: #E4DED4;
-  --color-bronze: #9B7B4F;
-  --color-bronze-light: #B08E5E;
-  --color-white: #FFFFFF;
+  /* Colors — NARAP Hybrid Editorial Luxury System */
+  --brand-navy: #071827;
+  --deep-navy: #0D1D2D;
+  --warm-ivory: #F7F5EF;
+  --white: #FFFFFF;
+  --charcoal: #171717;
+  --muted-text: #6F746F;
+  --sand: #D8CBB5;
+  --brand-gold: #C9A44C;
+  --soft-gold: #D8BC76;
+
+  /* Semantic mappings for backward compatibility & easy usage */
+  --color-ivory: var(--warm-ivory);
+  --color-ivory-warm: #F2EFE8;
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-light: var(--muted-text);
+  --color-forest: var(--brand-navy);
+  --color-forest-light: var(--deep-navy);
+  --color-sand: var(--sand);
+  --color-sand-light: #E8DECD;
+  --color-stone: #E0D9C8;
+  --color-stone-light: #ECE7DB;
+  --color-bronze: var(--brand-gold);
+  --color-bronze-light: var(--soft-gold);
+  --color-white: var(--white);
   --color-error: #8B3A3A;
   --color-success: #3A6B4A;
+
+  /* Gradients */
+  --gradient-gold: linear-gradient(135deg, var(--brand-gold) 0%, var(--soft-gold) 100%);
+  --gradient-navy: linear-gradient(180deg, var(--brand-navy) 0%, var(--deep-navy) 100%);
 
   /* Typography */
   --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -258,6 +274,14 @@ ul, ol {
   color: var(--color-sand);
 }
 
+/* Gold shimmer text for headings */
+.text-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .text-body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
@@ -308,10 +332,11 @@ ul, ol {
 .btn--primary {
   background-color: var(--color-charcoal);
   color: var(--color-ivory);
+  font-weight: 500;
 }
 
 .btn--primary:hover {
-  background-color: var(--color-charcoal-light);
+  background-color: var(--brand-navy);
 }
 
 .btn--secondary {
@@ -348,12 +373,14 @@ ul, ol {
 }
 
 .btn--light {
-  background-color: var(--color-ivory);
+  background: var(--gradient-gold);
   color: var(--color-charcoal);
+  font-weight: 600;
 }
 
 .btn--light:hover {
-  background-color: var(--color-white);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 20px rgba(197, 165, 90, 0.3);
 }
 
 .btn--sm {
@@ -373,7 +400,7 @@ ul, ol {
   color: var(--color-charcoal);
   background-color: var(--color-white);
   border: 1px solid var(--color-stone);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-none);
   padding: var(--space-4);
   width: 100%;
   transition: border-color var(--transition-fast);
@@ -386,7 +413,7 @@ ul, ol {
 }
 
 .input::placeholder {
-  color: var(--color-sand);
+  color: var(--color-charcoal-light);
 }
 
 .input--error {
@@ -399,7 +426,7 @@ ul, ol {
   color: var(--color-charcoal);
   background-color: var(--color-white);
   border: 1px solid var(--color-stone);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-none);
   padding: var(--space-4);
   width: 100%;
   min-height: 120px;
@@ -438,7 +465,7 @@ ul, ol {
 
 .divider--wide {
   width: 100%;
-  background-color: var(--color-stone-light);
+  background-color: var(--color-stone);
 }
 
 /* --- Visually Hidden (Accessibility) --- */
@@ -461,7 +488,8 @@ ul, ol {
   transition: opacity var(--transition-slower), transform var(--transition-slower);
 }
 
-.reveal.revealed {
+.reveal.revealed,
+.revealed .reveal {
   opacity: 1;
   transform: translateY(0);
 }

@@ -7,15 +7,22 @@ import WhyTravelSection from '@/components/home/WhyTravelSection';
 import JourneyDesignerCTA from '@/components/home/JourneyDesignerCTA';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import FinalCTA from '@/components/home/FinalCTA';
+import { getFeaturedSanityDestinations, getFeaturedSanityJourneys, getFeaturedSanityExperiences } from '@/sanity/queries';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [destinations, journeys, experiences] = await Promise.all([
+    getFeaturedSanityDestinations(),
+    getFeaturedSanityJourneys(),
+    getFeaturedSanityExperiences()
+  ]);
+
   return (
     <>
       <HeroSection />
       <IntroSection />
-      <FeaturedJourneys />
-      <DestinationsSection />
-      <ExperiencesSection />
+      <FeaturedJourneys journeys={journeys} />
+      <DestinationsSection destinations={destinations} />
+      <ExperiencesSection experiences={experiences} />
       <WhyTravelSection />
       <JourneyDesignerCTA />
       <TestimonialsSection />

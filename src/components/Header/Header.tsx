@@ -6,11 +6,12 @@ import { Menu, X, Phone } from 'lucide-react';
 import styles from './Header.module.css';
 
 const navItems = [
-  { label: 'Journeys', href: '/journeys' },
+  { label: 'Safaris', href: '/journeys' },
+  { label: 'Adventures', href: '/experiences' },
   { label: 'Destinations', href: '/destinations' },
-  { label: 'Experiences', href: '/experiences' },
-  { label: 'Journal', href: '/journal' },
+  { label: 'Business Travel', href: '/journal' },
   { label: 'About', href: '/about' },
+  { label: 'Referrals', href: '/referrals' },
 ];
 
 export default function Header() {
@@ -52,8 +53,11 @@ export default function Header() {
       >
         <div className={styles.inner}>
           <Link href="/" className={styles.logo} aria-label="Homepage" onClick={closeMenu}>
-            <span className={styles.logoMark}>S</span>
-            <span className={styles.logoText}>Savanna & Co.</span>
+            <span className={styles.logoMark}>N</span>
+            <div className={styles.logoTextGroup}>
+              <span className={styles.logoText}>NARAP</span>
+              <span className={styles.logoSub}>Tours & Travel</span>
+            </div>
           </Link>
 
           <nav className={styles.nav} aria-label="Main navigation">
@@ -66,7 +70,7 @@ export default function Header() {
 
           <div className={styles.actions}>
             <Link
-              href="https://wa.me/254700000000"
+              href="https://wa.me/254743883119"
               className={styles.whatsapp}
               aria-label="Contact us on WhatsApp"
               target="_blank"
@@ -115,7 +119,7 @@ export default function Header() {
             Plan Your Journey
           </Link>
           <Link
-            href="https://wa.me/254700000000"
+            href="https://wa.me/254743883119"
             className={styles.mobileWhatsapp}
             target="_blank"
             rel="noopener noreferrer"

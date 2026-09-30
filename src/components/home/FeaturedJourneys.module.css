@@ -60,9 +60,9 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(24, 24, 21, 0.7) 0%,
-    rgba(24, 24, 21, 0.15) 50%,
-    rgba(24, 24, 21, 0) 100%
+    rgba(7, 24, 39, 0.7) 0%,
+    rgba(7, 24, 39, 0.15) 50%,
+    rgba(7, 24, 39, 0) 100%
   );
 }
 
