@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useCallback, type FormEvent } from 'react';
+import { useState, useCallback, type FormEvent, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import styles from './page.module.css';
 
@@ -20,6 +21,7 @@ interface FormData {
   email: string;
   whatsapp: string;
   country: string;
+  referralCode: string;
 }
 
 const motivations = [
@@ -53,7 +55,8 @@ const budgetOptions = [
 
 const totalSteps = 8;
 
-export default function PlanPage() {
+function PlanForm() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -70,7 +73,15 @@ export default function PlanPage() {
     email: '',
     whatsapp: '',
     country: '',
+    referralCode: '',
   });
+
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (ref) {
+      setFormData(prev => ({ ...prev, referralCode: ref }));
+    }
+  }, [searchParams]);
 
   const updateField = useCallback(<K extends keyof FormData>(key: K, value: FormData[K]) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -105,8 +116,9 @@ export default function PlanPage() {
     // Build the WhatsApp message
     const dest = formData.destination === 'Other' ? formData.otherDestination : formData.destination;
     const exps = formData.experiences.length > 0 ? formData.experiences.join(', ') : 'None specified';
+    const refText = formData.referralCode ? `\n*Referred By:* ${formData.referralCode}` : '';
     
-    const messageText = `Hello NARAP Tours! I would like to plan a journey.
+    const messageText = `Hello NARAP Tours! I would like to plan a journey.${refText}
 
 *Client Details:*
 Name: ${formData.name}
@@ -447,5 +459,19 @@ ${formData.message || 'None'}`;
         </form>
       </div>
     </div>
+  );
+}
+
+export default function PlanPage() {
+  return (
+    <Suspense fallback={
+      <div className={styles.page}>
+        <div style={{ padding: 'var(--space-20)', textAlign: 'center', fontFamily: 'var(--font-sans)', color: 'var(--color-charcoal)' }}>
+          Loading...
+        </div>
+      </div>
+    }>
+      <PlanForm />
+    </Suspense>
   );
 }

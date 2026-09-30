@@ -1,15 +1,39 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from './page.module.css';
-import { Gift, Share2, Users } from 'lucide-react';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Referrals & Partners',
-  description: 'Join the NARAP Tours & Travel Referral Program. Share the luxury of extraordinary journeys and earn exclusive rewards.',
-};
+import { useState } from 'react';
+import Image from 'next/image';
+import styles from './page.module.css';
+import { Gift, Share2, Users, Copy, Check } from 'lucide-react';
 
 export default function ReferralsPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [previous, setPrevious] = useState('yes');
+  const [generatedLink, setGeneratedLink] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  const handleGenerate = () => {
+    if (!name || !email) return;
+    
+    // Create a simple referral code based on the user's name
+    const code = name.toLowerCase().replace(/[^a-z0-9]/g, '') + Math.floor(Math.random() * 1000);
+    
+    // In production, you would want to save this to a database.
+    // Since this is a static WhatsApp-driven CRM, we use the URL directly.
+    // Use window.location.origin to get the current domain
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://narap-tours.vercel.app';
+    const link = `${baseUrl}/plan?ref=${code}`;
+    
+    setGeneratedLink(link);
+    setCopied(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(generatedLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
   return (
     <>
       <section className={styles.hero}>
@@ -71,26 +95,86 @@ export default function ReferralsPage() {
             <p className={styles.formBody}>
               Become an ambassador of authentic Kenyan luxury. Enter your details to get your unique sharing link.
             </p>
-            <form className={styles.form}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="ref-name" className="label">Full Name</label>
-                <input type="text" id="ref-name" className="input" placeholder="Your name" required />
+            
+            {!generatedLink ? (
+              <form className={styles.form} onSubmit={(e) => { e.preventDefault(); handleGenerate(); }}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="ref-name" className="label">Full Name</label>
+                  <input 
+                    type="text" 
+                    id="ref-name" 
+                    className="input" 
+                    placeholder="Your name" 
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required 
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="ref-email" className="label">Email Address</label>
+                  <input 
+                    type="email" 
+                    id="ref-email" 
+                    className="input" 
+                    placeholder="you@example.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required 
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="ref-previous" className="label">Have you traveled with us before?</label>
+                  <select 
+                    id="ref-previous" 
+                    className="input"
+                    value={previous}
+                    onChange={(e) => setPrevious(e.target.value)}
+                  >
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+                <button type="submit" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center', marginTop: 'var(--space-4)' }}>
+                  Generate My Link
+                </button>
+              </form>
+            ) : (
+              <div className={styles.form} style={{ textAlign: 'center', padding: 'var(--space-8) 0' }}>
+                <div style={{ marginBottom: 'var(--space-6)' }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-2xl)', color: 'var(--color-charcoal)', marginBottom: 'var(--space-2)' }}>
+                    Your Link is Ready!
+                  </h3>
+                  <p style={{ color: 'var(--color-charcoal-light)', fontSize: 'var(--text-sm)' }}>
+                    Share this link with your network. When they use it to plan a journey, we'll automatically track your referral.
+                  </p>
+                </div>
+                
+                <div style={{ display: 'flex', gap: 'var(--space-2)', marginBottom: 'var(--space-8)' }}>
+                  <input 
+                    type="text" 
+                    className="input" 
+                    value={generatedLink} 
+                    readOnly 
+                    style={{ flex: 1, backgroundColor: 'var(--color-ivory)', color: 'var(--color-charcoal)' }}
+                  />
+                  <button 
+                    onClick={handleCopy}
+                    className="btn btn--primary" 
+                    style={{ padding: '0 var(--space-4)' }}
+                    aria-label="Copy to clipboard"
+                  >
+                    {copied ? <Check size={20} /> : <Copy size={20} />}
+                  </button>
+                </div>
+                
+                <button 
+                  onClick={() => setGeneratedLink('')}
+                  className="btn btn--secondary"
+                >
+                  Generate Another Link
+                </button>
               </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="ref-email" className="label">Email Address</label>
-                <input type="email" id="ref-email" className="input" placeholder="you@example.com" required />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="ref-previous" className="label">Have you traveled with us before?</label>
-                <select id="ref-previous" className="input">
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-              <button type="button" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center', marginTop: 'var(--space-4)' }}>
-                Generate My Link
-              </button>
-            </form>
+            )}
           </div>
         </div>
       </section>
