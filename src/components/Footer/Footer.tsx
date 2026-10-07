@@ -1,6 +1,14 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowUpRight, MapPin, MessageCircle, Mail } from 'lucide-react';
+import { MapPin, MessageCircle, Mail } from 'lucide-react';
 import styles from './Footer.module.css';
+import { GlobalSettings } from '@/sanity/queries';
+
+interface FooterProps {
+  settings?: GlobalSettings;
+}
 
 const footerLinks = {
   explore: [
@@ -15,8 +23,27 @@ const footerLinks = {
   ],
 };
 
-export default function Footer() {
+export default function Footer({ settings }: FooterProps) {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // Contact details — fall back to hardcoded values if CMS not yet configured
+  const phone = settings?.contactPhone || '254737449129';
+  const email = settings?.contactEmail || 'info@naraptoursandtravel.com';
+  const location = settings?.contactLocation || 'Wood Avenue Park Apartments, 5th floor, door 5';
+  const whatsAppHref = `https://wa.me/${phone.replace(/\D/g, '')}`;
+
+  // Social links
+  const instagram = settings?.socialInstagram;
+  const facebook = settings?.socialFacebook;
+  const youtube = settings?.socialYouTube;
+  const linkedin = settings?.socialLinkedIn;
+
+  const hasSocials = instagram || facebook || youtube || linkedin;
+
+  if (pathname?.startsWith('/studio')) {
+    return null;
+  }
 
   return (
     <footer className={styles.footer} role="contentinfo">
@@ -27,7 +54,7 @@ export default function Footer() {
               <span className={styles.logoMark}>N</span>
               <div className={styles.logoTextGroup}>
                 <span className={styles.logoText}>NARAP</span>
-                <span className={styles.logoSub}>Tours & Travel</span>
+                <span className={styles.logoSub}>Tours &amp; Travel</span>
               </div>
             </div>
             <p className={styles.tagline}>
@@ -48,21 +75,21 @@ export default function Footer() {
               </div>
               <div className={styles.mapText}>
                 <span className={styles.mapTitle}>View on Map</span>
-                <span className={styles.mapSubtitle}>Wood Avenue Park Apartments<br/>5th floor, door 5</span>
+                <span className={styles.mapSubtitle}>{location}</span>
               </div>
             </Link>
 
             <Link
-              href="https://wa.me/254737449129"
+              href={whatsAppHref}
               className={styles.contactLink}
               target="_blank"
               rel="noopener noreferrer"
             >
               <MessageCircle size={18} /> Chat on WhatsApp
             </Link>
-            
-            <Link href="mailto:info@naraptoursandtravel.com" className={styles.contactLink}>
-              <Mail size={18} /> info@naraptoursandtravel.com
+
+            <Link href={`mailto:${email}`} className={styles.contactLink}>
+              <Mail size={18} /> {email}
             </Link>
           </div>
 
@@ -97,16 +124,41 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <p className={styles.copyright}>
-            &copy; {currentYear} NARAP Tours & Travel. All rights reserved.
+            &copy; {currentYear} NARAP Tours &amp; Travel. All rights reserved.
           </p>
-          <div className={styles.social}>
-            <Link href="#" className={styles.socialLink} aria-label="Instagram">
-              Instagram
-            </Link>
-            <Link href="#" className={styles.socialLink} aria-label="LinkedIn">
-              LinkedIn
-            </Link>
-          </div>
+          {hasSocials ? (
+            <div className={styles.social}>
+              {instagram && (
+                <Link href={instagram} className={styles.socialLink} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                  Instagram
+                </Link>
+              )}
+              {facebook && (
+                <Link href={facebook} className={styles.socialLink} aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                  Facebook
+                </Link>
+              )}
+              {youtube && (
+                <Link href={youtube} className={styles.socialLink} aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                  YouTube
+                </Link>
+              )}
+              {linkedin && (
+                <Link href={linkedin} className={styles.socialLink} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                  LinkedIn
+                </Link>
+              )}
+            </div>
+          ) : (
+            <div className={styles.social}>
+              <Link href="#" className={styles.socialLink} aria-label="Instagram">
+                Instagram
+              </Link>
+              <Link href="#" className={styles.socialLink} aria-label="LinkedIn">
+                LinkedIn
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </footer>

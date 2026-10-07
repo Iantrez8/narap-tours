@@ -43,6 +43,7 @@ export default function FeaturedJourneys({ journeys }: FeaturedJourneysProps) {
                   fill
                   sizes={index === 0 ? '(max-width: 768px) 100vw, 60vw' : '(max-width: 768px) 100vw, 30vw'}
                   style={{ objectFit: 'cover' }}
+                  quality={95}
                   loading="lazy"
                 />
                 <div className={styles.cardOverlay} />
@@ -55,6 +56,11 @@ export default function FeaturedJourneys({ journeys }: FeaturedJourneysProps) {
                 </div>
                 <h3 className={styles.cardTitle}>{journey.title}</h3>
                 <p className={styles.cardSubtitle}>{journey.subtitle}</p>
+                {journey.priceFrom && (
+                  <p style={{ marginTop: '0.5rem', marginBottom: '0.75rem', fontWeight: 500, fontSize: '0.9rem', color: 'var(--color-primary)' }}>
+                    {journey.priceFrom}
+                  </p>
+                )}
                 <span className={styles.cardCta}>
                   Explore Journey <ArrowRight size={14} />
                 </span>

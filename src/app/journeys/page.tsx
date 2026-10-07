@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getSanityJourneys } from '@/sanity/queries';
+import { getSanityJourneys, getGlobalSettings } from '@/sanity/queries';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -10,26 +10,30 @@ export const metadata: Metadata = {
 };
 
 export default async function JourneysPage() {
-  const journeys = await getSanityJourneys();
+  const [journeys, settings] = await Promise.all([
+    getSanityJourneys(),
+    getGlobalSettings()
+  ]);
 
   return (
     <>
       {/* Hero */}
       <section className={styles.hero}>
         <Image
-          src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1920&q=80"
-          alt="Safari vehicle moving through the African savannah"
+          src={settings.journeysHeroImage || "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1920&q=80"}
+          alt={settings.journeysHeroHeadline || "Safari vehicle moving through the African savannah"}
           fill
           priority
           sizes="100vw"
           style={{ objectFit: 'cover' }}
+          quality={95}
         />
         <div className={styles.heroOverlay} />
         <div className={`container ${styles.heroContent}`}>
           <p className={styles.overline}>Private Journeys</p>
-          <h1 className={styles.heroTitle}>Every Journey, Designed for You</h1>
+          <h1 className={styles.heroTitle}>{settings.journeysHeroHeadline || "Every Journey, Designed for You"}</h1>
           <p className={styles.heroSubtitle}>
-            No fixed itineraries. No group schedules. Just the world, your way.
+            {settings.journeysHeroSubtitle || "No fixed itineraries. No group schedules. Just the world, your way."}
           </p>
         </div>
       </section>
@@ -51,6 +55,7 @@ export default async function JourneysPage() {
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     style={{ objectFit: 'cover' }}
+                    quality={95}
                     loading="lazy"
                   />
                   <div className={styles.cardOverlay} />
@@ -63,7 +68,11 @@ export default async function JourneysPage() {
                   </div>
                   <h2 className={styles.cardTitle}>{journey.title}</h2>
                   <p className={styles.cardSubtitle}>{journey.subtitle}</p>
-
+                  {journey.priceFrom && (
+                    <p style={{ marginTop: '0.5rem', fontWeight: 500, fontSize: '0.9rem', color: 'var(--color-primary)' }}>
+                      {journey.priceFrom}
+                    </p>
+                  )}
                 </div>
               </Link>
             ))}

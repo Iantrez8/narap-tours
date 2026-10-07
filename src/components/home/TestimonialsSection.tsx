@@ -3,60 +3,85 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useScrollReveal } from '@/hooks/useScroll';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import Image from 'next/image';
 import styles from './TestimonialsSection.module.css';
+import { Testimonial } from '@/sanity/queries';
+
+interface TestimonialsSectionProps {
+  testimonials?: Testimonial[];
+}
 
 /* 
-  PLACEHOLDER: These are clearly placeholder testimonials for layout purposes.
-  They must be replaced with genuine, permission-granted traveller stories.
-  Do NOT publish these as real reviews.
+  PLACEHOLDER: If no testimonials have been added in the Sanity studio yet,
+  these placeholders are shown. Replace them with real traveller stories
+  via the Sanity Studio → Testimonials section.
 */
-const testimonials = [
+const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
   {
-    id: 'placeholder-1',
-    quote: 'From the moment we landed, everything was taken care of. Our guide knew exactly when to speak and when to let us simply absorb the landscape. It was the most extraordinary week of our lives.',
+    _id: 'placeholder-1',
+    quote:
+      'From the moment we landed, everything was taken care of. Our guide knew exactly when to speak and when to let us simply absorb the landscape. It was the most extraordinary week of our lives.',
     name: 'Placeholder — to be replaced',
     country: 'United Kingdom',
     journey: 'The Mara in Slow Motion',
     rating: 5,
     initials: 'SR',
+    featured: true,
   },
   {
-    id: 'placeholder-2',
-    quote: 'We wanted a honeymoon that was different from anything we had ever experienced. Kenya delivered beyond what we imagined. The safari was thrilling, the coast was paradise, and every lodge felt like a personal sanctuary.',
+    _id: 'placeholder-2',
+    quote:
+      'We wanted a honeymoon that was different from anything we had ever experienced. Kenya delivered beyond what we imagined. The safari was thrilling, the coast was paradise, and every lodge felt like a personal sanctuary.',
     name: 'Placeholder — to be replaced',
     country: 'United States',
     journey: 'Kenya for Two',
     rating: 5,
     initials: 'JM',
+    featured: true,
   },
   {
-    id: 'placeholder-3',
-    quote: 'Our children are still talking about it. The junior ranger programme, the elephant orphanage, the nights around the campfire — this was the trip that changed our family.',
+    _id: 'placeholder-3',
+    quote:
+      'Our children are still talking about it. The junior ranger programme, the elephant orphanage, the nights around the campfire — this was the trip that changed our family.',
     name: 'Placeholder — to be replaced',
     country: 'Germany',
     journey: 'The Family Safari',
     rating: 5,
     initials: 'KW',
+    featured: true,
   },
   {
-    id: 'placeholder-4',
-    quote: 'I have been on safaris before, but nothing prepared me for the intimacy of a NARAP journey. Watching a leopard at sunset from our private veranda was pure magic.',
+    _id: 'placeholder-4',
+    quote:
+      'I have been on safaris before, but nothing prepared me for the intimacy of a NARAP journey. Watching a leopard at sunset from our private veranda was pure magic.',
     name: 'Placeholder — to be replaced',
     country: 'Canada',
     journey: 'Wild & Untamed',
     rating: 5,
     initials: 'DP',
+    featured: true,
   },
   {
-    id: 'placeholder-5',
-    quote: 'The attention to detail was remarkable. From the bush breakfast overlooking the plains to the surprise sundowner on the escarpment — every moment felt curated just for us.',
+    _id: 'placeholder-5',
+    quote:
+      'The attention to detail was remarkable. From the bush breakfast overlooking the plains to the surprise sundowner on the escarpment — every moment felt curated just for us.',
     name: 'Placeholder — to be replaced',
     country: 'Australia',
     journey: 'Great Rift Explorer',
     rating: 5,
     initials: 'LH',
+    featured: true,
   },
 ];
+
+function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+}
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -74,13 +99,17 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   const ref = useScrollReveal();
+
+  // Use Sanity data if available and non-empty, otherwise fall back to placeholders
+  const data =
+    testimonials && testimonials.length > 0 ? testimonials : PLACEHOLDER_TESTIMONIALS;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
   const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
@@ -93,17 +122,20 @@ export default function TestimonialsSection() {
         setVisibleCount(3);
       }
     };
-    
+
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const maxIndex = Math.max(0, testimonials.length - visibleCount);
+  const maxIndex = Math.max(0, data.length - visibleCount);
 
-  const goTo = useCallback((index: number) => {
-    setActiveIndex((prev) => Math.max(0, Math.min(index, maxIndex)));
-  }, [maxIndex]);
+  const goTo = useCallback(
+    (index: number) => {
+      setActiveIndex(Math.max(0, Math.min(index, maxIndex)));
+    },
+    [maxIndex]
+  );
 
   const goNext = useCallback(() => {
     setActiveIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
@@ -124,12 +156,14 @@ export default function TestimonialsSection() {
 
   const handleInteraction = () => {
     setIsAutoPlaying(false);
-    // Resume after 10 seconds of no interaction
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   return (
-    <section className={`section section--lg ${styles.section}`} aria-label="Traveller Stories">
+    <section
+      className={`section section--lg ${styles.section}`}
+      aria-label="Traveller Stories"
+    >
       <div className="container" ref={ref}>
         <div className={`reveal ${styles.header}`}>
           <p className="text-overline">Traveller Stories</p>
@@ -146,29 +180,46 @@ export default function TestimonialsSection() {
               className={styles.track}
               style={{ transform: `translateX(-${activeIndex * (100 / visibleCount)}%)` }}
             >
-              {testimonials.map((t, i) => (
-                <blockquote key={t.id} className={styles.card} style={{ animationDelay: `${i * 100}ms` }}>
-                  <div className={styles.cardTop}>
-                    <div className={styles.quoteIcon} aria-hidden="true">
-                      <Quote size={20} />
+              {data.map((t, i) => {
+                const displayInitials = t.initials || getInitials(t.name);
+                return (
+                  <blockquote
+                    key={t._id}
+                    className={styles.card}
+                    style={{ animationDelay: `${i * 100}ms` }}
+                  >
+                    <div className={styles.cardTop}>
+                      <div className={styles.quoteIcon} aria-hidden="true">
+                        <Quote size={20} />
+                      </div>
+                      <StarRating rating={t.rating} />
                     </div>
-                    <StarRating rating={t.rating} />
-                  </div>
 
-                  <p className={styles.quote}>{t.quote}</p>
+                    <p className={styles.quote}>{t.quote}</p>
 
-                  <footer className={styles.attribution}>
-                    <div className={styles.avatar}>
-                      <span className={styles.initials}>{t.initials}</span>
-                    </div>
-                    <div className={styles.authorInfo}>
-                      <cite className={styles.name}>{t.name}</cite>
-                      <span className={styles.meta}>{t.country}</span>
-                      <span className={styles.journey}>{t.journey}</span>
-                    </div>
-                  </footer>
-                </blockquote>
-              ))}
+                    <footer className={styles.attribution}>
+                      <div className={styles.avatar}>
+                        {t.photo ? (
+                          <Image
+                            src={t.photo}
+                            alt={t.name}
+                            width={40}
+                            height={40}
+                            style={{ objectFit: 'cover', borderRadius: '50%' }}
+                          />
+                        ) : (
+                          <span className={styles.initials}>{displayInitials}</span>
+                        )}
+                      </div>
+                      <div className={styles.authorInfo}>
+                        <cite className={styles.name}>{t.name}</cite>
+                        {t.country && <span className={styles.meta}>{t.country}</span>}
+                        {t.journey && <span className={styles.journey}>{t.journey}</span>}
+                      </div>
+                    </footer>
+                  </blockquote>
+                );
+              })}
             </div>
           </div>
 
@@ -179,7 +230,10 @@ export default function TestimonialsSection() {
                 <button
                   key={i}
                   className={`${styles.dot} ${i === activeIndex ? styles.dotActive : ''}`}
-                  onClick={() => { goTo(i); handleInteraction(); }}
+                  onClick={() => {
+                    goTo(i);
+                    handleInteraction();
+                  }}
                   aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
@@ -187,14 +241,20 @@ export default function TestimonialsSection() {
             <div className={styles.arrows}>
               <button
                 className={styles.arrowBtn}
-                onClick={() => { goPrev(); handleInteraction(); }}
+                onClick={() => {
+                  goPrev();
+                  handleInteraction();
+                }}
                 aria-label="Previous testimonials"
               >
                 <ChevronLeft size={20} />
               </button>
               <button
                 className={styles.arrowBtn}
-                onClick={() => { goNext(); handleInteraction(); }}
+                onClick={() => {
+                  goNext();
+                  handleInteraction();
+                }}
                 aria-label="Next testimonials"
               >
                 <ChevronRight size={20} />

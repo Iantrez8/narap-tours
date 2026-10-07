@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { destinations, getDestinationBySlug } from '@/data/destinations';
+import { getSanityDestinations, getSanityDestinationBySlug } from '@/sanity/queries';
 import styles from './page.module.css';
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
+  const destinations = await getSanityDestinations();
   return destinations.map((dest) => ({
     slug: dest.slug,
   }));
@@ -17,7 +18,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const destination = getDestinationBySlug(slug);
+  const destination = await getSanityDestinationBySlug(slug);
 
   if (!destination) {
     return { title: 'Destination Not Found' };
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DestinationDetailPage({ params }: Props) {
   const { slug } = await params;
-  const destination = getDestinationBySlug(slug);
+  const destination = await getSanityDestinationBySlug(slug);
 
   if (!destination) {
     notFound();
@@ -86,7 +87,7 @@ export default async function DestinationDetailPage({ params }: Props) {
             <div className={styles.wildlife}>
               <h2 className={styles.sectionTitle}>Notable Wildlife</h2>
               <ul className={styles.wildlifeList}>
-                {destination.wildlife.map((animal) => (
+                {(destination.wildlife || []).map((animal) => (
                   <li key={animal} className={styles.wildlifeItem}>{animal}</li>
                 ))}
               </ul>

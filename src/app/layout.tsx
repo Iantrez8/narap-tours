@@ -3,6 +3,7 @@ import { Inter, Cormorant_Garamond } from 'next/font/google';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import AIChat from '@/components/AIChat/AIChat';
+import { getGlobalSettings } from '@/sanity/queries';
 import './globals.css';
 
 const inter = Inter({
@@ -54,7 +55,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const settings = await getGlobalSettings();
+
   return (
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
@@ -63,7 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <Header />
         <main id="main-content">{children}</main>
-        <Footer />
+        <Footer settings={settings} />
         <AIChat />
       </body>
     </html>

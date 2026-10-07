@@ -16,12 +16,13 @@ export default async function DestinationsPage() {
     <>
       <section className={styles.hero}>
         <Image
-          src="https://images.unsplash.com/photo-1535941339077-2dd1c7963fc8?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1920&q=80"
           alt="Vast landscape"
           fill
           priority
           sizes="100vw"
           style={{ objectFit: 'cover' }}
+          quality={95}
         />
         <div className={styles.heroOverlay} />
         <div className={`container ${styles.heroContent}`}>
@@ -52,6 +53,7 @@ export default async function DestinationsPage() {
                       : '(max-width: 768px) 100vw, 33vw'
                     }
                     style={{ objectFit: 'cover' }}
+                    quality={95}
                     loading="lazy"
                   />
                   <div className={styles.cardOverlay} />

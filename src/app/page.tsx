@@ -8,27 +8,35 @@ import JourneyDesignerCTA from '@/components/home/JourneyDesignerCTA';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import ReferAndEarn from '@/components/home/ReferAndEarn';
 import FinalCTA from '@/components/home/FinalCTA';
-import { getFeaturedSanityDestinations, getFeaturedSanityJourneys, getFeaturedSanityExperiences } from '@/sanity/queries';
+import {
+  getFeaturedSanityDestinations,
+  getFeaturedSanityJourneys,
+  getFeaturedSanityExperiences,
+  getFeaturedSanityTestimonials,
+  getGlobalSettings,
+} from '@/sanity/queries';
 
 export default async function HomePage() {
-  const [destinations, journeys, experiences] = await Promise.all([
+  const [destinations, journeys, experiences, testimonials, settings] = await Promise.all([
     getFeaturedSanityDestinations(),
     getFeaturedSanityJourneys(),
-    getFeaturedSanityExperiences()
+    getFeaturedSanityExperiences(),
+    getFeaturedSanityTestimonials(),
+    getGlobalSettings(),
   ]);
 
   return (
     <>
-      <HeroSection />
-      <IntroSection />
+      <HeroSection settings={settings} />
+      <IntroSection settings={settings} />
       <FeaturedJourneys journeys={journeys} />
       <DestinationsSection destinations={destinations} />
       <ExperiencesSection experiences={experiences} />
-      <WhyTravelSection />
-      <JourneyDesignerCTA />
-      <TestimonialsSection />
+      <WhyTravelSection settings={settings} />
+      <JourneyDesignerCTA settings={settings} />
+      <TestimonialsSection testimonials={testimonials} />
       <ReferAndEarn />
-      <FinalCTA />
+      <FinalCTA settings={settings} />
     </>
   );
 }

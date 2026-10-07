@@ -1,7 +1,7 @@
 export default function StudioLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body style={{ margin: 0, padding: 0 }} suppressHydrationWarning>{children}</body>
-    </html>
+    <div style={{ margin: 0, padding: 0, minHeight: '100vh' }}>
+      {children}
+    </div>
   );
 }

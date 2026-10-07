@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getSanityJourneys, getSanityJourneyBySlug } from '@/sanity/queries';
-import { MapPin, Clock, Users, Compass, ArrowRight } from 'lucide-react';
+import { MapPin, Clock, Users, Compass, ArrowRight, Tag } from 'lucide-react';
 import styles from './page.module.css';
 
 export async function generateStaticParams() {
@@ -108,8 +108,16 @@ export default async function JourneyDetailPage(
                   <span className={styles.glanceValue}>{journey.idealFor}</span>
                 </div>
               </div>
+              {journey.priceFrom && (
+                <div className={styles.glanceItem}>
+                  <Tag size={16} strokeWidth={1.5} />
+                  <div>
+                    <span className={styles.glanceLabel}>Price</span>
+                    <span className={styles.glanceValue}>{journey.priceFrom}</span>
+                  </div>
+                </div>
+              )}
             </div>
-
 
             <div className={styles.glanceActions}>
               <Link href="/plan" className="btn btn--primary" style={{ width: '100%', justifyContent: 'center' }}>

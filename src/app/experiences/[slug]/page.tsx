@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { experiences, getExperienceBySlug } from '@/data/experiences';
+import { getSanityExperiences, getSanityExperienceBySlug } from '@/sanity/queries';
 import styles from './page.module.css';
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
+  const experiences = await getSanityExperiences();
   return experiences.map((exp) => ({
     slug: exp.slug,
   }));
@@ -17,7 +18,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const experience = getExperienceBySlug(slug);
+  const experience = await getSanityExperienceBySlug(slug);
 
   if (!experience) {
     return { title: 'Experience Not Found' };
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ExperienceDetailPage({ params }: Props) {
   const { slug } = await params;
-  const experience = getExperienceBySlug(slug);
+  const experience = await getSanityExperienceBySlug(slug);
 
   if (!experience) {
     notFound();

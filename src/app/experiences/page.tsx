@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { experiences } from '@/data/experiences';
+import { getSanityExperiences } from '@/sanity/queries';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   description: 'Discover how to experience Kenya — from Big Five safaris and the Great Migration to hot-air balloons and beach escapes.',
 };
 
-export default function ExperiencesPage() {
+export default async function ExperiencesPage() {
+  const experiences = await getSanityExperiences();
+
   return (
     <>
       <section className={styles.hero}>

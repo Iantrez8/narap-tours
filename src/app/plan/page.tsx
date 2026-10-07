@@ -8,7 +8,8 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import styles from './page.module.css';
 
 interface FormData {
-  motivation: string;
+  motivation: string[];
+  otherMotivation: string;
   destination: string;
   otherDestination: string;
   experiences: string[];
@@ -33,6 +34,7 @@ const motivations = [
   { value: 'celebration', label: 'Celebration', image: 'https://images.unsplash.com/photo-1549366021-9f761d450615?w=400&q=70' },
   { value: 'corporate', label: 'Corporate', image: 'https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=400&q=70' },
   { value: 'first-safari', label: 'First Safari', image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&q=70' },
+  { value: 'other', label: 'Other', image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=70' },
 ];
 
 const experienceOptions = [
@@ -40,7 +42,7 @@ const experienceOptions = [
   'Wellness & Spa', 'Educational & School Trips', 'Sports & Athletics', 'Photography',
 ];
 
-const destinationOptions = ['Kenya', 'Tanzania', 'Rwanda', 'Bali', 'Maldives', 'Paris', 'Other'];
+const destinationOptions = ['Maasai Mara', 'Amboseli', 'Samburu', 'Lake Nakuru', 'Tsavo', 'Diani Beach', 'Multiple Destinations', 'Other'];
 
 const travellerOptions = ['Solo', 'Couple', 'Family', 'Friends', 'Corporate Group', 'School Group', 'Sports Team'];
 const durationOptions = ['3–5 Nights', '6–8 Nights', '9–12 Nights', '13+ Nights', 'Not sure'];
@@ -60,7 +62,8 @@ function PlanForm() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    motivation: '',
+    motivation: [],
+    otherMotivation: '',
     destination: '',
     otherDestination: '',
     experiences: [],
@@ -87,6 +90,15 @@ function PlanForm() {
     setFormData((prev) => ({ ...prev, [key]: value }));
   }, []);
 
+  const toggleMotivation = useCallback((mot: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      motivation: prev.motivation.includes(mot)
+        ? prev.motivation.filter((m) => m !== mot)
+        : [...prev.motivation, mot],
+    }));
+  }, []);
+
   const toggleExperience = useCallback((exp: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -98,7 +110,7 @@ function PlanForm() {
 
   const canProceed = (): boolean => {
     switch (step) {
-      case 1: return formData.motivation !== '';
+      case 1: return formData.motivation.length > 0 && (!formData.motivation.includes('other') || formData.otherMotivation.trim() !== '');
       case 2: return formData.destination !== '' && (formData.destination !== 'Other' || formData.otherDestination.trim() !== '');
       case 3: return formData.experiences.length > 0;
       case 4: return formData.travellers !== '';
@@ -114,6 +126,9 @@ function PlanForm() {
     e.preventDefault();
     
     // Build the WhatsApp message
+    const mots = formData.motivation.length > 0 
+      ? formData.motivation.map(m => m === 'other' ? formData.otherMotivation : m).join(', ') 
+      : 'None specified';
     const dest = formData.destination === 'Other' ? formData.otherDestination : formData.destination;
     const exps = formData.experiences.length > 0 ? formData.experiences.join(', ') : 'None specified';
     const refText = formData.referralCode ? `\n*Referred By:* ${formData.referralCode}` : '';
@@ -127,7 +142,7 @@ WhatsApp: ${formData.whatsapp || 'Not provided'}
 Country: ${formData.country || 'Not provided'}
 
 *Journey Preferences:*
-Motivation: ${formData.motivation}
+Motivation: ${mots}
 Destination: ${dest}
 Experiences: ${exps}
 Travellers: ${formData.travellers}
@@ -200,13 +215,14 @@ ${formData.message || 'None'}`;
               <div className={styles.step}>
                 <p className={styles.stepLabel}>Step 1 of {totalSteps}</p>
                 <h1 className={styles.stepTitle}>What kind of journey are you looking for?</h1>
+                <p className={styles.stepHint}>Select all that apply.</p>
                 <div className={styles.optionGrid}>
                   {motivations.map((m) => (
                     <button
                       key={m.value}
                       type="button"
-                      className={`${styles.imageOption} ${formData.motivation === m.value ? styles.imageOptionSelected : ''}`}
-                      onClick={() => updateField('motivation', m.value)}
+                      className={`${styles.imageOption} ${formData.motivation.includes(m.value) ? styles.imageOptionSelected : ''}`}
+                      onClick={() => toggleMotivation(m.value)}
                     >
                       <div className={styles.imageOptionImg}>
                         <Image
@@ -221,6 +237,19 @@ ${formData.message || 'None'}`;
                     </button>
                   ))}
                 </div>
+                {formData.motivation.includes('other') && (
+                  <div style={{ marginTop: 'var(--space-6)' }}>
+                    <label htmlFor="plan-other-motivation" className="label">Please specify your journey type</label>
+                    <input
+                      type="text"
+                      id="plan-other-motivation"
+                      className="input"
+                      placeholder="e.g., Wellness Retreat, Birding Safari..."
+                      value={formData.otherMotivation}
+                      onChange={(e) => updateField('otherMotivation', e.target.value)}
+                    />
+                  </div>
+                )}
               </div>
             )}
 
