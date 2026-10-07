@@ -29,7 +29,7 @@ export default function Footer({ settings }: FooterProps) {
 
   // Contact details — fall back to hardcoded values if CMS not yet configured
   const phone = settings?.contactPhone || '254737449129';
-  const email = settings?.contactEmail || 'info@naraptoursandtravel.com';
+  const email = settings?.contactEmail || 'info@naraptours.com';
   const location = settings?.contactLocation || 'Wood Avenue Park Apartments, 5th floor, door 5';
   const whatsAppHref = `https://wa.me/${phone.replace(/\D/g, '')}`;
 

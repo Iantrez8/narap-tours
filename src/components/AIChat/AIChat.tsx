@@ -79,7 +79,7 @@ export default function AIChat() {
 
     // 9. Contact Info
     if (text.includes('contact') || text.includes('phone') || text.includes('whatsapp') || text.includes('email') || text.includes('call') || text.includes('talk')) {
-      return "You can chat with our travel designers directly via WhatsApp at +254 737 449 129, or email us at info@naraptoursandtravel.com. We're always here to help!";
+      return "You can chat with our travel designers directly via WhatsApp at +254 737 449 129, or email us at info@naraptours.com. We're always here to help!";
     }
 
     // 10. Greetings

@@ -49,6 +49,9 @@ export const metadata: Metadata = {
     description:
       'Safaris, adventures, business travel and luxury escapes — designed around you.',
   },
+  icons: {
+    icon: '/images/logo.jpg',
+  },
   robots: {
     index: true,
     follow: true,
