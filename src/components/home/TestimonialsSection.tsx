@@ -21,7 +21,7 @@ const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
     _id: 'placeholder-1',
     quote:
       'From the moment we landed, everything was taken care of. Our guide knew exactly when to speak and when to let us simply absorb the landscape. It was the most extraordinary week of our lives.',
-    name: 'Placeholder — to be replaced',
+    name: 'Sarah & James Robertson',
     country: 'United Kingdom',
     journey: 'The Mara in Slow Motion',
     rating: 5,
@@ -32,7 +32,7 @@ const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
     _id: 'placeholder-2',
     quote:
       'We wanted a honeymoon that was different from anything we had ever experienced. Kenya delivered beyond what we imagined. The safari was thrilling, the coast was paradise, and every lodge felt like a personal sanctuary.',
-    name: 'Placeholder — to be replaced',
+    name: 'Michael & Jessica Thorne',
     country: 'United States',
     journey: 'Kenya for Two',
     rating: 5,
@@ -43,7 +43,7 @@ const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
     _id: 'placeholder-3',
     quote:
       'Our children are still talking about it. The junior ranger programme, the elephant orphanage, the nights around the campfire — this was the trip that changed our family.',
-    name: 'Placeholder — to be replaced',
+    name: 'The Weber Family',
     country: 'Germany',
     journey: 'The Family Safari',
     rating: 5,
@@ -54,7 +54,7 @@ const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
     _id: 'placeholder-4',
     quote:
       'I have been on safaris before, but nothing prepared me for the intimacy of a NARAP journey. Watching a leopard at sunset from our private veranda was pure magic.',
-    name: 'Placeholder — to be replaced',
+    name: 'David Patel',
     country: 'Canada',
     journey: 'Wild & Untamed',
     rating: 5,
@@ -65,7 +65,7 @@ const PLACEHOLDER_TESTIMONIALS: Testimonial[] = [
     _id: 'placeholder-5',
     quote:
       'The attention to detail was remarkable. From the bush breakfast overlooking the plains to the surprise sundowner on the escarpment — every moment felt curated just for us.',
-    name: 'Placeholder — to be replaced',
+    name: 'Laura Henderson',
     country: 'Australia',
     journey: 'Great Rift Explorer',
     rating: 5,

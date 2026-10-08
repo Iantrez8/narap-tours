@@ -26,6 +26,16 @@ export const metadata: Metadata = {
   },
   description:
     'Extraordinary Journeys. Global Connections. Safaris, adventures, business travel and luxury escapes through Kenya and beyond — designed around you.',
+  keywords: [
+    'Narap tours',
+    'Narap tours and travel',
+    'Narap tours Kenya',
+    'Kenya safari tours',
+    'luxury travel Kenya',
+    'best safari operators Kenya',
+    'corporate travel Nairobi',
+    'Maasai Mara tours',
+  ],
   metadataBase: new URL('https://naraptoursandtravel.com'),
   openGraph: {
     type: 'website',
